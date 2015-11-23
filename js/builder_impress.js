@@ -21,12 +21,16 @@
 
 // You are one of those who like to know how thing work inside?
 // Let me show you the cogs that make impress.js run...
-Impress = (function (impdoc,impwin) {
-    
-    if(impdoc == null) impdoc = document;
-    if(impwin==null) impwin = window;
-    
-    function startup() { // impdoc, impwin) {
+Impress = (function (impdoc, impwin) {
+
+    // Allow for no doc and win parameters (presume current document and current window)
+    if (impdoc == null) {
+        impdoc = document;
+    };
+    if (impwin == null) {
+        impwin = window;
+    };
+    var startup = (function () { // impdoc, impwin) {
         'use strict';
     
         // HELPER FUNCTIONS
@@ -34,7 +38,7 @@ Impress = (function (impdoc,impwin) {
         // `pfx` is a function that takes a standard CSS property name as a parameter
         // and returns it's prefixed version valid for current browser it runs in.
         // The code is heavily inspired by Modernizr http://www.modernizr.com/
-        function pfx() {
+        var pfx = (function () {
 
             var style = impdoc.createElement('dummy').style,
                 prefixes = 'Webkit Moz O ms Khtml'.split(' '),
@@ -59,18 +63,18 @@ Impress = (function (impdoc,impwin) {
                 return memory[prop];
             };
 
-        };
+        })();
     
         // `arraify` takes an array-like object and turns it into real Array
         // to make all the Array.prototype goodness available.
-        function arrayify(a) {
+        var arrayify = function (a) {
             return [].slice.call(a);
         };
     
         // `css` function applies the styles given in `props` object to the element
         // given as `el`. It runs all property names through `pfx` function to make
         // sure proper prefixed version of the property is used.
-        function css(el, props) {
+        var css = function (el, props) {
             var key, pkey;
             for (key in props) {
                 if (props.hasOwnProperty(key)) {
@@ -86,46 +90,46 @@ Impress = (function (impdoc,impwin) {
         // `toNumber` takes a value given as `numeric` parameter and tries to turn
         // it into a number. If it is not possible it returns 0 (or other value
         // given as `fallback`).
-        function toNumber(numeric, fallback) {
+        var toNumber = function (numeric, fallback) {
             return isNaN(numeric) ? (fallback || 0) : Number(numeric);
         };
     
         // `byId` returns element with given `id` - you probably have guessed that ;)
-        function byId(id) {
+        var byId = function (id) {
             return impdoc.getElementById(id);
         };
     
         // `$` returns first element for given CSS `selector` in the `context` of
         // the given element or whole document.
-        function $(selector, context) {
+        var $ = function (selector, context) {
             context = context || document;
             return context.querySelector(selector);
         };
     
         // `$$` return an array of elements for given CSS `selector` in the `context` of
         // the given element or whole document.
-        function $$(selector, context) {
+        var $$ = function (selector, context) {
             context = context || document;
             return arrayify(context.querySelectorAll(selector));
         };
     
         // `triggerEvent` builds a custom DOM event with given `eventName` and `detail` data
         // and triggers it on element given as `el`.
-        function triggerEvent(el, eventName, detail) {
+        var triggerEvent = function (el, eventName, detail) {
             var event = impdoc.createEvent("CustomEvent");
             event.initCustomEvent(eventName, true, true, detail);
             el.dispatchEvent(event);
         };
     
         // `translate` builds a translate transform string for given data.
-        function translate(t) {
+        var translate = function (t) {
             return " translate3d(" + t.x + "px," + t.y + "px," + t.z + "px) ";
         };
     
         // `rotate` builds a rotate transform string for given data.
         // By default the rotations are in X Y Z order that can be reverted by passing `true`
         // as second parameter.
-        function rotate(r, revert) {
+        var rotate = function (r, revert) {
             var rX = " rotateX(" + r.x + "deg) ",
                 rY = " rotateY(" + r.y + "deg) ",
                 rZ = " rotateZ(" + r.z + "deg) ";
@@ -134,18 +138,18 @@ Impress = (function (impdoc,impwin) {
         };
     
         // `scale` builds a scale transform string for given data.
-        function scale(s) {
+        var scale = function (s) {
             return " scale(" + s + ") ";
         };
     
         // `perspective` builds a perspective transform string for given data.
-        function perspective(p) {
+        var perspective = function (p) {
             return " perspective(" + p + "px) ";
         };
     
         // `getElementFromHash` returns an element located by id from hash part of
         // window location.
-        function getElementFromHash () {
+        var getElementFromHash = function () {
             // get id from url # by removing `#` or `#/` from the beginning,
             // so both "fallback" `#slide-id` and "enhanced" `#/slide-id` will work
             return byId(impwin.location.hash.replace(/^#\/?/, ""));
@@ -153,7 +157,7 @@ Impress = (function (impdoc,impwin) {
     
         // `computeWindowScale` counts the scale factor between window size and size
         // defined for the presentation in the config.
-        function computeWindowScale (config) {
+        var computeWindowScale = function (config) {
             var hScale = impwin.innerHeight / config.height,
                 wScale = impwin.innerWidth / config.width,
                 scale = hScale > wScale ? wScale : hScale;
@@ -216,15 +220,15 @@ Impress = (function (impdoc,impwin) {
         // it's just an empty function ... and a useless comment.
         var empty = function () { return false; };
     
+    
+      
         // IMPRESS.JS API
     
         // And that's where interesting things will start to happen.
         // It's the core `impress` function that returns the impress.js API
         // for a presentation based on the element with given id ('impress'
         // by default).
-        //var impress = impwin.impress =
-
-        function impress(rootId) {
+        var impress = impwin.impress = function (rootId) {
         
             // If impress.js is not supported by the browser return a dummy API
             // it may not be a perfect solution but we return early and avoid
@@ -341,7 +345,7 @@ Impress = (function (impdoc,impwin) {
             }
         
             // `init` API function that initializes (and runs) the presentation.
-            function init() {
+            var init = function () {
                 if (initialized) { return; }
             
                 // First we set up the viewport for mobile devices.
@@ -439,8 +443,7 @@ Impress = (function (impdoc,impwin) {
         
             // `goto` API function that moves to step given with `el` parameter (by index, id or element),
             // with a transition `duration` optionally given as second parameter.
-            // var goto =
-                function goto(el, duration) {
+            var goto = function (el, duration) {
 
                 if (!initialized || !(el = getStep(el))) {
                     // presentation not initialized or given element is not a step
@@ -579,8 +582,7 @@ Impress = (function (impdoc,impwin) {
             };
         
             // `prev` API function goes to previous step (in document order)
-            // var prev =
-                function prev() {
+            var prev = function () {
                 var prev = steps.indexOf(activeStep) - 1;
                 prev = prev >= 0 ? steps[prev] : steps[steps.length - 1];
 
@@ -588,8 +590,7 @@ Impress = (function (impdoc,impwin) {
             };
         
             // `next` API function goes to next step (in document order)
-            // var next =
-                function next() {
+            var next = function () {
                 var next = steps.indexOf(activeStep) + 1;
                 next = next < steps.length ? steps[next] : steps[0];
 
@@ -674,23 +675,8 @@ Impress = (function (impdoc,impwin) {
             });
 
 
-        }
-        function getDoc() {
-            return impdoc;
         };
-
-        function setDoc(newDoc) {
-            impdoc = newDoc;
-        };
-
-
-        function getWin() {
-            return impwin;
-        };
-
-        function setWin(newWin) {
-            impwin = newWin;
-        };
+        
 
 
 
@@ -699,9 +685,9 @@ Impress = (function (impdoc,impwin) {
         // flag that can be used in JS to check if browser have passed the support test
         impress.supported = impressSupported;
 
-    }
-    //)(document, window)
-    ;
+    })
+    //(document, window)
+        ;
 
     // NAVIGATION EVENTS
 
@@ -711,7 +697,7 @@ Impress = (function (impdoc,impwin) {
     //
     // In future I think about moving it to make them optional, move to separate files
     // and treat more like a 'plugins'.
-    function startupNav(){ //(impdoc, impwin) {
+    var startupNav = (function () { //(impdoc, impwin) {
         'use strict';
     
         // throttling function calls, by Remy Sharp
@@ -848,8 +834,9 @@ Impress = (function (impdoc,impwin) {
         }, false);
 
     }
-    // )(document, window)
-    ;
+        )
+    //(document, window)
+        ;
 
     // THAT'S ALL FOLKS!
     //
@@ -859,3 +846,29 @@ Impress = (function (impdoc,impwin) {
     // I've learnt a lot when building impress.js and I hope this code and comments
     // will help somebody learn at least some part of it.
 });
+
+
+
+
+
+  Impress.prototype.getimpress =function (){
+            return Impress.impress;
+        };
+    
+        function getDoc() {
+            return impdoc;
+        };
+
+        function setDoc(newDoc) {
+            impdoc = newDoc;
+        };
+
+
+        function getWin() {
+            return impwin;
+        };
+
+        function setWin(newWin) {
+            impwin = newWin;
+        };
+

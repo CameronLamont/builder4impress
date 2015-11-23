@@ -19,7 +19,7 @@
 
 <body>
     
-    <iframe id="#impressframe" name="impressframe" src="new_impress.html" width="50%" height="50%"></iframe>
+    <iframe id="#impressframe" name="impressframe" src="new_impress.html" width="90%" height="90%" style="margin: 120px"></iframe>
     
 <script src="js/builder_impress.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -31,13 +31,11 @@
   var fwin = frames['impressframe'];
   var fdoc= fwin.document;
   
+    
+  // Start up impress using the iframe
   var imp = new Impress(fdoc,fwin);
   
-  //Impress.setDoc(fdoc);
-  //Impress.setWin(fwin);
-  
-  // Start up impress using the iframe
-  var iAPI=imp.impress();
+  var iAPI= fwin.impress();
   
   
   
