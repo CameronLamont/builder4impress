@@ -154,6 +154,20 @@ Builder=(function(){
   function downloadStyle(){
     var uriContent,content,$doc;
     
+<<<<<<< HEAD
+    // var BlobBuilder = (function(w) {
+    //   return w.BlobBuilder || w.WebKitBlobBuilder || w.MozBlobBuilder;
+    // })(window);
+    $.get('style.css', function (content) {
+      //var bb = new BlobBuilder;
+      //bb.append(content);
+      //saveAs(bb.getBlob("text/css;charset=utf-8"), "style.css");
+      
+      var bb = new Blob([content], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
+    
+      saveAs(bb, "style.css");
+      
+=======
     var BlobBuilder = (function(w) {
       return w.BlobBuilder || w.WebKitBlobBuilder || w.MozBlobBuilder;
     })(window);
@@ -161,6 +175,7 @@ Builder=(function(){
       var bb = new BlobBuilder;
       bb.append(content);
       saveAs(bb.getBlob("text/css;charset=utf-8"), "style.css");
+>>>>>>> 1a7fdfed28e4ded0b84daaab7c3e04826b968fff
     });
    
   }
@@ -168,9 +183,16 @@ Builder=(function(){
   function downloadResults(){
     var uriContent,content,$doc;
     
+<<<<<<< HEAD
+    // var BlobBuilder = (function(w) {
+      // return w.BlobBuilder || w.WebKitBlobBuilder || w.MozBlobBuilder;
+    // })(window);
+    
+=======
     var BlobBuilder = (function(w) {
       return w.BlobBuilder || w.WebKitBlobBuilder || w.MozBlobBuilder;
     })(window);
+>>>>>>> 1a7fdfed28e4ded0b84daaab7c3e04826b968fff
     $doc=$(document.documentElement).clone();
     //remove all scripting
     $doc.find('script').remove();
@@ -184,9 +206,20 @@ Builder=(function(){
     $doc.find('body').attr('class','impress-not-supported')[0].innerHTML+='<script src="https://raw.github.com/bartaz/impress.js/master/js/impress.js"></script><script>impress().init()</script>';
     content=$doc[0].outerHTML;
     //remove stuff
+<<<<<<< HEAD
+    
+    //var bb = new BlobBuilder;
+    //bb.append(content);
+    // saveAs(bb.getBlob("text/html;charset=utf-8"), "presentation.html"); 
+
+    var bb = new Blob([content], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
+    
+    saveAs(bb, "presentation.html");
+=======
     var bb = new BlobBuilder;
     bb.append(content);
     saveAs(bb.getBlob("text/html;charset=utf-8"), "presentation.html");
+>>>>>>> 1a7fdfed28e4ded0b84daaab7c3e04826b968fff
       
   }
   
