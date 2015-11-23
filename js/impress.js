@@ -19,7 +19,7 @@
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, latedef:true, newcap:true,
          noarg:true, noempty:true, undef:true, strict:true, browser:true */
 
-// You are one of those who like to know how thing work inside?
+// You are one of those who like to know how things work inside?
 // Let me show you the cogs that make impress.js run...
 (function ( document, window ) {
     'use strict';
@@ -191,7 +191,7 @@
     
     // GLOBALS AND DEFAULTS
     
-    // This is were the root elements of all impress.js instances will be kept.
+    // This is where the root elements of all impress.js instances will be kept.
     // Yes, this means you can have more than one instance on a page, but I'm not
     // sure if it makes any sense in practice ;)
     var roots = {};
@@ -328,11 +328,6 @@
             });
         };
         
-        var newStep = function ( el ) {
-            initStep(el);
-            steps.push(el);
-            }
-        
         // `init` API function that initializes (and runs) the presentation.
         var init = function () {
             if (initialized) { return; }
@@ -423,13 +418,6 @@
         // used to reset timeout for `impress:stepenter` event
         var stepEnterTimeout = null;
         
-        // naugtur:
-        // `setTransformationCallback` API function - sets a callback that allows passing the current transformations outside, to the editing tool
-        var transformationCallback = null;
-        var setTransformationCallback = function(callback){
-          transformationCallback=callback;
-        }
-        
         // `goto` API function that moves to step given with `el` parameter (by index, id or element),
         // with a transition `duration` optionally given as second parameter.
         var goto = function ( el, duration ) {
@@ -473,16 +461,6 @@
                 },
                 scale: 1 / step.scale
             };
-            
-            // naugtur:
-            // Running the callback if was registered.
-            if(transformationCallback) { 
-                transformationCallback({
-                  scale:step.scale,
-                  rotate:step.rotate,
-                  translate:step.translate
-                });
-            }
             
             // Check if the transition is zooming in or not.
             //
@@ -657,10 +635,7 @@
             init: init,
             goto: goto,
             next: next,
-            prev: prev,
-            initStep: initStep,
-            newStep:newStep,
-            setTransformationCallback:setTransformationCallback
+            prev: prev
         });
 
     };
@@ -809,7 +784,7 @@
         // rescale presentation when window is resized
         window.addEventListener("resize", throttle(function () {
             // force going to active step again, to trigger rescaling
-            api.goto( document.querySelector(".active"), 500 );
+            api.goto( document.querySelector(".step.active"), 500 );
         }, 250), false);
         
     }, false);
