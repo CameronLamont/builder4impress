@@ -74,8 +74,9 @@ Builder=(function(){
     $('<div></div>').addClass('builder-bt bt-overview').appendTo($menu).text('Overview').on('click',function(){
       config['goto']('overview');
     });
-    $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Get file').on('click',downloadResults);
-    $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('style.css').on('click',downloadStyle);
+    $('<div></div>').addClass('builder-bt bt-upload').appendTo($menu).text('Upload html file').on('click',uploadResults);
+    $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Download html file').on('click', downloadResults);
+    $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Download style.css').on('click',downloadStyle);
     
     
     $menu.appendTo('body');
@@ -164,8 +165,16 @@ Builder=(function(){
    
   }
   
+  function uploadResults() {
+    var content,$doc;
+    
+    $doc = $(document.documentElement);
+    
+    $doc[0].innerHTML = '<object type="text/html" data="index_input.html" ></object>';
+  }
+  
   function downloadResults(){
-    var uriContent,content,$doc;
+    var content,$doc;
     
     $doc=$(document.documentElement).clone();
     //remove all scripting

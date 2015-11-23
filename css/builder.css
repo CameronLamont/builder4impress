@@ -53,6 +53,10 @@ cursor: pointer;
   background: #333 url(get.png) no-repeat center left;
 }
 
+.bt-upload{
+  background: #333 url(put.png) no-repeat center left;
+}
+
 .builder-controls {
   padding:5px;
   background: #222;
