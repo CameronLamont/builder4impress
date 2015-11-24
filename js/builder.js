@@ -118,7 +118,12 @@ Builder=(function(){
       $(config.doc).off('mousemove.handler1');
     });
     
-    $('body').on('mouseenter','.step',function(){
+    // create highlight class to be used to show steps being high lighted
+    $("<style type='text/css'>\
+    .builderhighlight {background-color: rgba(255, 250, 100, 0.5);}</style>", config.doc)
+    .appendTo("head");
+    
+    $('body',config.doc).on('mouseenter','.step',function(){
       var $t=$(this);
       showTimer=setTimeout(function(){
         if(!mouse.activeFunction){
@@ -127,11 +132,19 @@ Builder=(function(){
           showControls(state.$node);
         }
       },500);
-      $t.data('showTimer',showTimer);
-    }).on('mouseleave','.step',function(){
+      $t.data('showTimer', showTimer);
+      
+      $t.addClass('builderhighlight');
+    }).on('mouseleave', '.step', function () {
       //not showing when not staying
       clearTimeout($(this).data('showTimer'));
+      $(this).removeClass('builderhighlight');
     });
+    
+    
+    
+    
+    
     
     $(window).on('beforeunload',function(){ return 'All changes will be lost'; });
     
@@ -151,10 +164,11 @@ Builder=(function(){
     //query slide id
     var id,$step;
     id='builderAutoSlide'+sequence();
-    $step=$('<div></div>').addClass('step builder-justcreated').html('<h1>This is a new step. </h1> How about some contents?');
+    $step = $('<div></div>', config.doc).addClass('step builder-justcreated').html('<h1>This is a new step. </h1> How about some contents?');
+    $step.addClass('builderhighlight');
     $step[0].id=id;
     $step[0].dataset.scale=3;
-    $step.insertAfter($('.step:last')); //not too performant, but future proof
+    $step.insertAfter($('.step:last',config.doc)); //not too performant, but future proof
     //config.creationFunction($step[0]);
     config['creationFunction']($step[0]);
     // jump to the overview slide to make some room to look around
@@ -220,7 +234,7 @@ Builder=(function(){
       $t.parent().find('textarea').remove();
       $t.text('Edit');
     }else{
-      var $txt=$('<textarea>').on('keydown keyup',function(e){
+      var $txt=$('<textarea>',config.doc).on('keydown keyup',function(e){
         e.stopPropagation();
       });
       $t.text('OK');
