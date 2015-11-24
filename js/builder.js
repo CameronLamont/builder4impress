@@ -51,6 +51,15 @@ Builder=(function(){
   function init(conf){
     config=$.extend(config,conf);
     
+    // If a document is not passed default to this document (same as original builder behaviour)
+    if (!config.doc) {
+      config.doc = document;
+    }
+    // same for window
+    if (!config.win) {
+      config.win = window;
+    }
+    
     if(config.setTransformationCallback){
       config.setTransformationCallback(function(x){
         // guess what, it indicates slide change too :)
@@ -99,14 +108,14 @@ Builder=(function(){
       loadData();
       mouse.prevX=e.pageX;
       mouse.prevY=e.pageY;
-      $(document).on('mousemove.handler1',handleMouseMove);
+      $(config.doc).on('mousemove.handler1',handleMouseMove);
       return false;
     }).on('mouseenter',function(){
       clearTimeout(showTimer);
     });
-    $(document).on('mouseup',function(){
+    $(config.doc).on('mouseup',function(){
       mouse.activeFunction=false;
-      $(document).off('mousemove.handler1');
+      $(config.doc).off('mousemove.handler1');
     });
     
     $('body').on('mouseenter','.step',function(){
@@ -169,7 +178,7 @@ Builder=(function(){
   function uploadResults() {
     var content,$doc;
     
-    $doc = $(document.documentElement);
+    $doc = $(config.doc.documentElement);
     
     $doc[0].innerHTML = '<object type="text/html" data="index_input.html" ></object>';
   }
@@ -177,9 +186,11 @@ Builder=(function(){
   function downloadResults(){
     var content,$doc;
     
-    $doc=$(document.documentElement).clone();
+    $doc = $(config.doc.documentElement).clone();
+    
     //remove all scripting
-    $doc.find('script').remove();
+    //$doc.find('script').remove();
+    
     //remove all current transforms
     $doc.find('.step, body, #impress, #impress>div').removeAttr('style');
     //remove gui
@@ -187,7 +198,9 @@ Builder=(function(){
     //put overview at the end
     $doc.find('#overview').appendTo($doc.find('#impress'));
     //add impress.js simple init
-    $doc.find('body').attr('class','impress-not-supported')[0].innerHTML+='<script src="https://raw.github.com/bartaz/impress.js/master/js/impress.js"></script><script>impress().init()</script>';
+/*
+    $doc.find('body').attr('class', 'impress-not-supported')[0].innerHTML += '<script src="https://raw.github.com/bartaz/impress.js/master/js/impress.js"></script><script>impress().init()</script>';
+    */
     content=$doc[0].outerHTML;
     //remove stuff
 
