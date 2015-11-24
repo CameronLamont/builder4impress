@@ -328,6 +328,12 @@
             });
         };
         
+        
+            var newStep = function (el) {
+                initStep(el);
+                steps.push(el);
+            }
+        
         // `init` API function that initializes (and runs) the presentation.
         var init = function () {
             if (initialized) { return; }
@@ -418,6 +424,14 @@
         // used to reset timeout for `impress:stepenter` event
         var stepEnterTimeout = null;
         
+                
+            // naugtur:
+            // `setTransformationCallback` API function - sets a callback that allows passing the current transformations outside, to the editing tool
+            var transformationCallback = null;
+            var setTransformationCallback = function (callback) {
+                transformationCallback = callback;
+            }
+        
         // `goto` API function that moves to step given with `el` parameter (by index, id or element),
         // with a transition `duration` optionally given as second parameter.
         var goto = function ( el, duration ) {
@@ -461,6 +475,17 @@
                 },
                 scale: 1 / step.scale
             };
+            
+                        
+                // naugtur:
+                // Running the callback if was registered.
+                if (transformationCallback) {
+                    transformationCallback({
+                        scale: step.scale,
+                        rotate: step.rotate,
+                        translate: step.translate
+                    });
+                }
             
             // Check if the transition is zooming in or not.
             //
@@ -635,7 +660,10 @@
             init: init,
             goto: goto,
             next: next,
-            prev: prev
+            prev: prev,
+            initStep: initStep,
+            newStep: newStep,
+            setTransformationCallback: setTransformationCallback
         });
 
     };

@@ -146,7 +146,8 @@ Builder=(function(){
     $step[0].id=id;
     $step[0].dataset.scale=3;
     $step.insertAfter($('.step:last')); //not too performant, but future proof
-    config.creationFunction($step[0]);
+    //config.creationFunction($step[0]);
+    config['creationFunction']($step[0]);
     // jump to the overview slide to make some room to look around
     config['goto']('overview');
   }

@@ -19,10 +19,10 @@
 
 <body>
     
-    <iframe id="#impressframe" name="impressframe" src="new_impress.html" width="90%" height="90%" style="margin: 120px" 
+    <iframe id="#impressframe" name="impressframe" src="new_impress.html" width="100%" height="100%" 
       onload="frameloaded()"></iframe>
     
-<script src="js/builder_impress.js"></script>
+<!--<script src="js/impress.js"></script>-->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <script src="js/FileSaver.min.js"></script>
@@ -35,7 +35,7 @@
   
   var fwin = frames['impressframe'];
   
-  var fdoc= fwin.document;
+  var fdoc = fwin.document;
   
     
   // Start up impress using the iframe
@@ -51,8 +51,11 @@
   
 
 Builder.init({
+  win: fwin,
+  doc: fdoc,
+  iAPI: iAPI,
   "goto":iAPI['goto'], //it makes me feel better this way
-  creationFunction:iAPI.newStep, //future API method that adds a new step
+  "creationFunction":iAPI['newStep'], //future API method that adds a new step
   redrawFunction:iAPI.initStep, //future API method that (re)draws the step
   setTransformationCallback:iAPI.setTransformationCallback //future API method that lets me know when transformations change
 });
