@@ -70,6 +70,39 @@
     return div.style[support.transform] !== '';
   }
 
+
+function checkTranslate3dSupport() {
+    if (!window.getComputedStyle) {
+        return false;
+    }
+
+    var el = document.createElement('p'), 
+        has3d,
+        transforms = {
+            'webkitTransform':'-webkit-transform',
+            'OTransform':'-o-transform',
+            'msTransform':'-ms-transform',
+            'MozTransform':'-moz-transform',
+            'transform':'transform'
+        };
+
+    // Add it to the body to get the computed style.
+    document.body.insertBefore(el, null);
+
+    for (var t in transforms) {
+        if (el.style[t] !== undefined) {
+            el.style[t] = "translate3d(1px,1px,1px)";
+            has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+        }
+    }
+
+    document.body.removeChild(el);
+
+    return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+}
+
+
+
   var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
   // Check for the browser's transitions support.
@@ -79,6 +112,8 @@
   support.transformOrigin = getVendorPropertyName('transformOrigin');
   support.filter          = getVendorPropertyName('Filter');
   support.transform3d     = checkTransform3dSupport();
+  support.translate3d = checkTranslate3dSupport();
+
 
   var eventNames = {
     'transition':       'transitionend',
@@ -235,6 +270,7 @@
   registerCssHook('scaleX');
   registerCssHook('scaleY');
   registerCssHook('translate');
+  registerCssHook('translate3d');
   registerCssHook('rotate');
   registerCssHook('rotateX');
   registerCssHook('rotateY');
@@ -414,6 +450,15 @@
         if (s[3]) { s[3] = unit(s[3], 'deg'); }
 
         return s;
+      },
+      
+      translate3d: function() {
+        var s = (this.translate3d || "0,0,0").split(',');
+        for (var i=0; i<=2; ++i) {
+          if (s[i]) { s[i] = parseFloat(s[i]); }
+        }
+        
+        return s;
       }
     },
 
@@ -435,7 +480,7 @@
       for (var i in this) {
         if (this.hasOwnProperty(i)) {
           // Don't use 3D transformations if the browser can't support it.
-          if ((!support.transform3d) && (
+          if (((!support.transform3d) && (!support.translate3d)) && (
             (i === 'rotateX') ||
             (i === 'rotateY') ||
             (i === 'perspective') ||

@@ -8,7 +8,7 @@
 <body>
 	<div class="wrapper w1">
 		<h1><code>View point</code></h1>
-		<div class="cube">
+		<div class="cube1">
 			<div class="side viewfront front" style="transform: translateZ(1em);">front</div>
 			<div class="side   back" style="transform: rotateY(-180deg) translateZ(1em);"></div>
 			<div class="side right" style="transform: rotateY(90deg) translateZ(1em);"></div>
@@ -20,7 +20,7 @@
 	
 	<div class="wrapper w2">
 		<h1><code>Object</code></h1>
-		<div class="cube">
+		<div class="cube2">
 			<div class="side  front" style="transform: translateZ(1em);">1</div>
 			<div class="side   back" style="transform: rotateY(-180deg) translateZ(1em);">6</div>
 			<div class="side  right" style="transform: rotateY(90deg) translateZ(1em);">4</div>
@@ -41,17 +41,20 @@
 		});
 	};
 	
-	$(".w1 .cube").children(".side").on('click',function flip(el){
+	$(".w1 .cube1").children(".side").on('click',function flip(el){
 		console.log(this.classList);
 		if($.inArray('viewtop',this.classList)>0 || $.inArray('viewfront',this.classList)>0 || $.inArray('viewleft',this.classList)>0){
 			console.log(this.innerText);
 			
-			/*
-			$(".w2 .cube").css("rotateX",$(this).css("rotateX"));
-			$(".w2 .cube").css("rotateY",$(this).css("rotateY"));
-			*/
+			
+			$(".w2").css("rotateX","-" + $(this).css("rotateX"));
+			$(".w2").css("rotateY",$(this).css("rotateY"));
+			
+			
 		
-			$(".w2 .cube").css("transform",$(this).css("transform"));
+			//$(".w2 .cube").css("transform",$(this).css("transform"));
+			
+			
 		};
 		
 		
