@@ -18,5 +18,8 @@
   "dependencies": {
     "FileSaver": "*",
     "jquery": "~2.1.4"
+  },
+  "devDependencies": {
+    "jquery-ui": "~1.11.4"
   }
 }

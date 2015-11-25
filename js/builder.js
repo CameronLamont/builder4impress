@@ -90,8 +90,11 @@ Builder=(function(){
     
     $menu.appendTo('body');
     
+    // make menu draggable
+    $menu.draggable();
     
     $controls=$('<div></div>').addClass('builder-controls').hide();
+    
     
     $('<div></div>').addClass('bt-move').attr('title','Move').data('func','move').appendTo($controls);
     $('<div></div>').addClass('bt-rotate').attr('title','Rotate').data('func','rotate').appendTo($controls);
@@ -99,6 +102,9 @@ Builder=(function(){
     
     $('<span></span>').addClass('builder-bt').text('Edit').appendTo($controls).click(editContents);
     $('<span></span>').addClass('builder-bt').text('Wrap').appendTo($controls).click(wrapContents);
+    
+    // make controls draggable
+    $controls.draggable();
     
     var showTimer;
     
@@ -135,10 +141,24 @@ Builder=(function(){
       $t.data('showTimer', showTimer);
       
       $t.addClass('builderhighlight');
+      $t.addClass('ui-widget-content');
+      
+      // $t.resizable({
+      //   disabled: false
+      // });
+      $t.draggable({ cursor: "move" });
+      
+    // $t.resizable( "option", "disabled", false );
+      $t.draggable( "option", "disabled", false );
     }).on('mouseleave', '.step', function () {
+      var $t=$(this);
+      
       //not showing when not staying
-      clearTimeout($(this).data('showTimer'));
-      $(this).removeClass('builderhighlight');
+      clearTimeout($t.data('showTimer'));
+      $t.removeClass('builderhighlight');
+      $t.removeClass('ui-widget-content');
+     // $t.resizable( "option", "disabled", true );
+      $t.draggable( "option", "disabled", false );
     });
     
     
@@ -238,6 +258,7 @@ Builder=(function(){
         e.stopPropagation();
       });
       $t.text('OK');
+      $t.css( "opacity", 1);
       state.editing=true;
       $t.after($txt.val(state.$node.html()));
     }
