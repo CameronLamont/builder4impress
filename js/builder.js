@@ -87,6 +87,55 @@ Builder=(function(){
     $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Download html file').on('click', downloadResults);
     $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Download style.css').on('click',downloadStyle);
     
+    $('<div class="wrapper w1"><div class="cube1">\
+			<div class="side viewfront front" style="transform: translateZ(1em);\">front</div>\
+			<div class="side   back" style="transform: rotateY(-180deg) translateZ(1em);"></div>\
+			<div class="side right" style="transform: rotateY(90deg) translateZ(1em);"></div>\
+			<div class="side  viewleft left" style="transform: rotateY(-90deg) translateZ(1em);">left</div>\
+			<div class="side  viewtop  top" style="transform: rotateX(90deg) translateZ(1em);">top</div>\
+			<div class="side  bottom" style="transform: rotateX(-90deg) translateZ(1em);"></div>\
+		</div></div>').appendTo($menu);
+    
+    // update all transforms for the cube sides - transit can't see them until they've been written??
+    $.each($menu.children("div"),function(d){
+			$(this).css("transform",this.style.transform);
+		});
+    
+    // update canvas transform - doesn't work with transit?
+    var $canvas = $("#canvas", config.doc);
+    //$canvas.css("transform", this.style.transform);
+    
+    // attach click handler to pass rotate parameters to canvas object within iframe
+    $menu.children(".w1").children(".cube1").children(".side").on('click',function flip(el){
+		  console.log(this.classList);
+      if($.inArray('viewtop',this.classList)>0 || $.inArray('viewfront',this.classList)>0 || $.inArray('viewleft',this.classList)>0){
+        console.log(this.innerText);
+        
+        console.log($canvas.css("transform"));
+        
+
+        //$("#canvas", config.doc)
+          $canvas.css("rotateX", "-" + $(this).css("rotateX"));
+         //$("#canvas", config.doc)
+         $canvas.css("rotateY", $(this).css("rotateY"));
+         //$("#canvas", config.doc)
+         $canvas.css("rotateZ", $(this).css("rotateZ"));
+        
+			
+		
+			//$(".w2 .cube").css("transform",$(this).css("transform"));
+			
+			
+		};
+		
+		
+		
+		console.log($(this).css("rotateX"));
+			console.log($(this).css("transform"));
+			console.log(this.style.transform);
+		
+	});
+    
     
     $menu.appendTo('body');
     
@@ -144,23 +193,24 @@ Builder=(function(){
       $t.addClass('ui-widget-content');
       
       $t.resizable({
-        disabled: false,
-        iframefix: true
-      }).draggable({ disabled: false,
-        iframefix: true, cursor: "move",cursorAt: {left:0, top:0} });
+        disabled: false
+      });
       
-      var dragFix = function (event, ui) {
-        ui.position.left -= parseFloat(this.dataset.x);
-        ui.position.top -= parseFloat(this.dataset.y);
-      }
-      $t.on( "drag", dragFix);
+      // $t.draggable({ disabled: false,
+      //   iframefix: true, cursor: "move",cursorAt: {left:0, top:0} });
       
-      $t.on( "start", dragFix);
-      $t.on( "stop", dragFix);
+      // var dragFix = function (event, ui) {
+      //   ui.position.left -= parseFloat(this.dataset.x);
+      //   ui.position.top -= parseFloat(this.dataset.y);
+      // }
+      // $t.on( "drag", dragFix);
+      
+      // $t.on( "start", dragFix);
+      // $t.on( "stop", dragFix);
       
       
-    // $t.resizable( "option", "disabled", false );
-      $t.draggable( "option", "disabled", false );
+     $t.resizable( "option", "disabled", false );
+      //$t.draggable( "option", "disabled", false );
     }).on('mouseleave', '.step', function () {
       var $t=$(this);
       
@@ -172,10 +222,10 @@ Builder=(function(){
         disabled: true
       });
       $t.resizable("option", "disabled", true);
-      $t.draggable({
-        disabled: true
-      });
-      $t.draggable("option", "disabled", false);
+      // $t.draggable({
+      //   disabled: true
+      // });
+      // $t.draggable("option", "disabled", false);
     });
     
     

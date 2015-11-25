@@ -183,8 +183,9 @@ function checkTranslate3dSupport() {
   //
   $.cssHooks['transit:transform'] = {
     // The getter returns a `Transform` object.
-    get: function(elem) {
-      return $(elem).data('transform') || new Transform();
+    get: function (elem) {
+      // pass any existing 'transform' style to new Transform object if no transform is defined yet
+      return $(elem).data('transform') || new Transform(elem.style.transform);
     },
 
     // The setter accepts a `Transform` object or a string.
@@ -274,6 +275,7 @@ function checkTranslate3dSupport() {
   registerCssHook('rotate');
   registerCssHook('rotateX');
   registerCssHook('rotateY');
+  registerCssHook('rotateZ');
   registerCssHook('rotate3d');
   registerCssHook('perspective');
   registerCssHook('skewX');
@@ -368,6 +370,10 @@ function checkTranslate3dSupport() {
       rotateY: function(theta) {
         this.rotateY = unit(theta, 'deg');
       },
+      rotateZ: function(theta) {
+        this.rotateZ = unit(theta, 'deg');
+      },
+
 
       // ### scale
       //
@@ -399,12 +405,17 @@ function checkTranslate3dSupport() {
       //     .css({ x: 4 })       //=> "translate(4px, 0)"
       //     .css({ y: 10 })      //=> "translate(4px, 10px)"
       //
+      //TODO update with z
       x: function(x) {
-        this.set('translate', x, null);
+        this.set('translate', x, null,null);
       },
 
       y: function(y) {
-        this.set('translate', null, y);
+        this.set('translate', null, y,null);
+      },
+
+       z: function(z) {
+        this.set('translate', null, null,z );
       },
 
       // ### translate
@@ -412,14 +423,18 @@ function checkTranslate3dSupport() {
       //
       //     .css({ translate: '2, 5' })    //=> "translate(2px, 5px)"
       //
-      translate: function(x, y) {
+      translate: function(x, y,z) {
         if (this._translateX === undefined) { this._translateX = 0; }
         if (this._translateY === undefined) { this._translateY = 0; }
+        if (this._translateZ === undefined) { this._translateZ = 0; }
+
 
         if (x !== null && x !== undefined) { this._translateX = unit(x, 'px'); }
         if (y !== null && y !== undefined) { this._translateY = unit(y, 'px'); }
+       if (z !== null && z !== undefined) { this._translateZ = unit(z, 'px'); }
 
-        this.translate = this._translateX + "," + this._translateY;
+
+        this.translate = this._translateX + "," + this._translateY+ "," + this._translateZ;
       }
     },
 
@@ -430,6 +445,10 @@ function checkTranslate3dSupport() {
 
       y: function() {
         return this._translateY || 0;
+      },
+
+       z: function() {
+        return this._translateZ || 0;
       },
 
       scale: function() {
@@ -480,9 +499,10 @@ function checkTranslate3dSupport() {
       for (var i in this) {
         if (this.hasOwnProperty(i)) {
           // Don't use 3D transformations if the browser can't support it.
-          if (((!support.transform3d) && (!support.translate3d)) && (
+          if (((!support.transform3d) /*&& (!support.translate3d)*/) && (
             (i === 'rotateX') ||
             (i === 'rotateY') ||
+            (i === 'rotateZ') ||
             (i === 'perspective') ||
             (i === 'transformOrigin'))) { continue; }
 

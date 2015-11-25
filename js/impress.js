@@ -260,6 +260,8 @@
         var root = byId( rootId );
         var canvas = document.createElement("div");
         
+        canvas.id = "canvas";
+        
         var initialized = false;
         
         // STEP EVENTS
@@ -402,6 +404,7 @@
                 rotate:    { x: 0, y: 0, z: 0 },
                 scale:     1
             };
+            //$(canvas).css('transform', canvas.style.transform);
             
             initialized = true;
             
@@ -532,6 +535,10 @@
                 transitionDuration: duration + "ms",
                 transitionDelay: (zoomin ? 0 : delay) + "ms"
             });
+            
+            //$(canvas).css('transform', canvas.style.transform);
+            
+            
             
             // Here is a tricky part...
             //
