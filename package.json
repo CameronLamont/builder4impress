@@ -1,0 +1,23 @@
+{
+  "name": "builder4impress",
+  "version": "1.0.0",
+  "description": "builder4impress\r ==============\r A tool that builds impress.js presentations",
+  "main": "builder.html",
+  "dependencies": {
+    "matrix-3d": "^0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CameronLamont/builder4impress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CameronLamont/builder4impress/issues"
+  },
+  "homepage": "https://github.com/CameronLamont/builder4impress#readme"
+}

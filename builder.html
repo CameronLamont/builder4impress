@@ -21,8 +21,9 @@
   
     
     <iframe id="impressframe" name="impressframe" src="new_impress.html" 
-      width="100vh" height="100vw"
-      onload="frameloaded()"></iframe>  
+      width="100vh" height="100vw" ></iframe>  
+      <!--onload="frameloaded()"-->
+     
 <!--    
     <iframe id="impressframe" name="impressframe" src="new_impress.html" 
       width="100vh" height="100vw"
@@ -34,16 +35,17 @@
 <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>-->
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
 <script src="bower_components/FileSaver/FileSaver.min.js"></script>
 <script src="js/builder.js"></script>
 <script>
-  
-  function frameloaded(){
+  $('#impressframe').on('load', function (){
     
   
   
-  var fwin = frames['impressframe'];
+  var fwin = $('#impressframe')[0].contentWindow;
+   
+  //var fwin = frames['impressframe'];
   
   var fdoc = fwin.document;
   
@@ -69,7 +71,7 @@ Builder.init({
   redrawFunction:iAPI.initStep, //future API method that (re)draws the step
   setTransformationCallback:iAPI.setTransformationCallback //future API method that lets me know when transformations change
 });
-  };
+  });
 </script>
 
 </body>

@@ -105,7 +105,7 @@ Builder=(function(){
     
     // make controls draggable
     $controls.draggable();
-    
+    /*
     var showTimer;
     
     $controls.appendTo('body').on('mousedown','div',function(e){
@@ -123,7 +123,7 @@ Builder=(function(){
       mouse.activeFunction=false;
       $(config.doc).off('mousemove.handler1');
     });
-    
+    */
     // create highlight class to be used to show steps being high lighted
     //TODO remove hard coded style and pull from builder.css
     $("html > head", config.doc).append($("<style type='text/css'> .builderhighlight {background-color: rgba(255, 250, 100, 0.5);}</style>", config.doc));
@@ -131,22 +131,33 @@ Builder=(function(){
     
     $('body',config.doc).on('mouseenter','.step',function(){
       var $t=$(this);
-      showTimer=setTimeout(function(){
+      /*showTimer=setTimeout(function(){
         if(!mouse.activeFunction){
           //show controls
           state.$node=$t;
           showControls(state.$node);
         }
-      },500);
-      $t.data('showTimer', showTimer);
+      },500);*/
+      //$t.data('showTimer', showTimer);
       
       $t.addClass('builderhighlight');
       $t.addClass('ui-widget-content');
       
-      // $t.resizable({
-      //   disabled: false
-      // });
-      $t.draggable({ cursor: "move" });
+      $t.resizable({
+        disabled: false,
+        iframefix: true
+      }).draggable({ disabled: false,
+        iframefix: true, cursor: "move",cursorAt: {left:0, top:0} });
+      
+      var dragFix = function (event, ui) {
+        ui.position.left -= parseFloat(this.dataset.x);
+        ui.position.top -= parseFloat(this.dataset.y);
+      }
+      $t.on( "drag", dragFix);
+      
+      $t.on( "start", dragFix);
+      $t.on( "stop", dragFix);
+      
       
     // $t.resizable( "option", "disabled", false );
       $t.draggable( "option", "disabled", false );
@@ -157,8 +168,14 @@ Builder=(function(){
       clearTimeout($t.data('showTimer'));
       $t.removeClass('builderhighlight');
       $t.removeClass('ui-widget-content');
-     // $t.resizable( "option", "disabled", true );
-      $t.draggable( "option", "disabled", false );
+      $t.resizable({
+        disabled: true
+      });
+      $t.resizable("option", "disabled", true);
+      $t.draggable({
+        disabled: true
+      });
+      $t.draggable("option", "disabled", false);
     });
     
     
@@ -324,6 +341,7 @@ Builder=(function(){
   }
   
   function handleMouseMove(e){
+/*
     e.preventDefault();
     e.stopPropagation();
       
@@ -337,7 +355,7 @@ Builder=(function(){
       mouse.activeFunction(x,y);
       redraw();
     }
-    
+    */
     return false;
   }
   
