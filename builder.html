@@ -18,11 +18,15 @@
 
 
 <body>
+  
     
-    
+    <iframe id="impressframe" name="impressframe" src="index_input.html" 
+      width="100vh" height="100vw"
+      onload="frameloaded()"></iframe>  
+<!--    
     <iframe id="impressframe" name="impressframe" src="new_impress.html" 
       width="100vh" height="100vw"
-      onload="frameloaded()"></iframe>
+      onload="frameloaded()"></iframe>-->
     
 <!--<script src="js/impress.js"></script>-->
 <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
@@ -47,7 +51,7 @@
   // Start up impress using the iframe
   //var imp = new Impress(fdoc,fwin);
   
-  var iAPI= fwin.iAPI;
+  var iAPI= fwin.impress();
   
   
   
