@@ -1,0 +1,22 @@
+{
+  "name": "builder4impress",
+  "homepage": "https://github.com/CameronLamont/builder4impress",
+  "authors": [
+    "CameronLamont <cameron@lamont.com.au>"
+  ],
+  "description": "",
+  "main": "builder.html",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "FileSaver": "*",
+    "jquery": "~2.1.4"
+  }
+}

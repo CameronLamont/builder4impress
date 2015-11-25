@@ -118,7 +118,8 @@ Builder=(function(){
       $(config.doc).off('mousemove.handler1');
     });
     
-    // create highlight class to be used to show steps being high lighted    
+    // create highlight class to be used to show steps being high lighted
+    //TODO remove hard coded style and pull from builder.css
     $("html > head", config.doc).append($("<style type='text/css'> .builderhighlight {background-color: rgba(255, 250, 100, 0.5);}</style>", config.doc));
     
     
