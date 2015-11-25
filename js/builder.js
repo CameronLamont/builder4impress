@@ -175,7 +175,7 @@ Builder=(function(){
     */
     // create highlight class to be used to show steps being high lighted
     //TODO remove hard coded style and pull from builder.css
-    $("html > head", config.doc).append($("<style type='text/css'> .builderhighlight {background-color: rgba(255, 250, 100, 0.5);}</style>", config.doc));
+    //$("html > head", config.doc).append($("<style type='text/css'> .builderhighlight {background-color: rgba(255, 250, 100, 0.5);}</style>", config.doc));
     
     
     $('body',config.doc).on('mouseenter','.step',function(){
@@ -189,7 +189,7 @@ Builder=(function(){
       },500);*/
       //$t.data('showTimer', showTimer);
       
-      $t.addClass('builderhighlight');
+      $t.addClass('builder-select');
       $t.addClass('ui-widget-content');
       
       $t.resizable({
@@ -216,7 +216,7 @@ Builder=(function(){
       
       //not showing when not staying
       clearTimeout($t.data('showTimer'));
-      $t.removeClass('builderhighlight');
+      $t.removeClass('builder-select');
       $t.removeClass('ui-widget-content');
       $t.resizable({
         disabled: true
@@ -252,7 +252,7 @@ Builder=(function(){
     var id,$step;
     id='builderAutoSlide'+sequence();
     $step = $('<div></div>', config.doc).addClass('step builder-justcreated').html('<h1>This is a new step. </h1> How about some contents?');
-    $step.addClass('builderhighlight');
+    $step.addClass('builder-select');
     $step[0].id=id;
     $step[0].dataset.scale=3;
     $step.insertAfter($('.step:last',config.doc)); //not too performant, but future proof
@@ -291,6 +291,8 @@ Builder=(function(){
     
     //remove all scripting
     //$doc.find('script').remove();
+    
+    //TODO remove builder styles added earlier
     
     //remove all current transforms
     $doc.find('.step, body, #impress, #impress>div').removeAttr('style');

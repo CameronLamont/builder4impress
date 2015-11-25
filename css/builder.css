@@ -4,7 +4,7 @@
 
 
 * { padding: 0; margin: 0; }
-html, body, #impressframe {
+body.builder4impress, #impressframe {
     min-height: 100vh;
     height: 100vh;
 }
@@ -14,9 +14,13 @@ html, body, #impressframe {
     /*display: block*/
 }
 
-/*TODO utilise */
-.step:hover .builder-select{
+div.builder-select{
   background-color: rgba(255,250,100,0.5) !important;
+  /* use linear-gradient with the same colours to overlap any background images */
+  background: linear-gradient(
+    rgba(255,250,100,0.5),
+    rgba(255,250,100,0.5)
+  );
 }
 
 /* buttons */

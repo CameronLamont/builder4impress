@@ -1,72 +1,72 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=1024" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>builder4impress - extremely WYSIWYG editor for impress.js | by @naugtur</title>
-    
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
 
-    <!-- style.css is needed for the presentation to look ok, the rest is up to you -->
-    <!--<link href="style.css" rel="stylesheet" />-->
-    <link href="css/builder.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="shortcut icon" href="favicon.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <link href="cube.css" rel="stylesheet" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1024" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>builder4impress - extremely WYSIWYG editor for impress.js | by @naugtur</title>
+
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic"
+  rel="stylesheet" />
+
+  <!-- style.css is needed for the presentation to look ok, the rest is up to you -->
+  <!--<link href="style.css" rel="stylesheet" />-->
+  <link href="css/builder.css" rel="stylesheet" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="shortcut icon" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link href="cube.css" rel="stylesheet" />
 </head>
 
 
-<body>
-  
-    
-    <iframe id="impressframe" name="impressframe" src="index_input.html" 
-      width="100vh" height="100vw" ></iframe>
-<!--    
+<body class="builder4impress">
+
+
+  <iframe id="impressframe" name="impressframe" src="index_input.html" width="100vh" height="100vw"></iframe>
+  <!--    
     <iframe id="impressframe" name="impressframe" src="new_impress.html" 
       width="100vh" height="100vw" ></iframe>  -->
 
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/jquery-ui/jquery-ui.js"></script>
-<script src="bower_components/jquery.transit/jquery.transit.js"></script>
-<script src="bower_components/FileSaver/FileSaver.min.js"></script>
-<script src="js/builder.js"></script>
-<script>
-  $('#impressframe').on('load', function (){
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+  <script src="bower_components/jquery.transit/jquery.transit.js"></script>
+  <script src="bower_components/FileSaver/FileSaver.min.js"></script>
+  <script src="js/builder.js"></script>
+  <script>
+    ($(function() {
+        $('#impressframe').on('load', function (){
     
-  
-  
-  var fwin = $('#impressframe')[0].contentWindow;
-   
-  //var fwin = frames['impressframe'];
-  
-  var fdoc = fwin.document;
-  
-    
-  // Start up impress using the iframe
-  //var imp = new Impress(fdoc,fwin);
-  
-  var iAPI= fwin.impress();
-  
-  
-  
-  //iAPI.init();
-  
-  //var iAPI = fwin.iAPI;
-  
+         
+          var $f = $('#impressframe');
+          var fwin = this.contentWindow; //$('#impressframe')[0].contentWindow;
+      
+           var fdoc = fwin.document;
+      
+          // clone all builder styles into iframe document
+          //TODO remove them again on export
+          $.each($(document).children("html").children("head").children("link"),function(){
+            $(this).clone().appendTo($("html",fdoc).children("head"));
+          });
+      
+      
+         
+          var iAPI= fwin.impress();
+          
+          Builder.init({
+            win: fwin,
+            doc: fdoc,
+            iAPI: iAPI,
+            "goto":iAPI['goto'], //it makes me feel better this way
+            "creationFunction":iAPI['newStep'], //future API method that adds a new step
+            redrawFunction:iAPI.initStep, //future API method that (re)draws the step
+            setTransformationCallback:iAPI.setTransformationCallback //future API method that lets me know when transformations change
+          });
+        });
+    }));
 
-Builder.init({
-  win: fwin,
-  doc: fdoc,
-  iAPI: iAPI,
-  "goto":iAPI['goto'], //it makes me feel better this way
-  "creationFunction":iAPI['newStep'], //future API method that adds a new step
-  redrawFunction:iAPI.initStep, //future API method that (re)draws the step
-  setTransformationCallback:iAPI.setTransformationCallback //future API method that lets me know when transformations change
-});
-  });
-</script>
+  </script>
 
 </body>
+
 </html>
