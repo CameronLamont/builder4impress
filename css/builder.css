@@ -14,10 +14,9 @@ html, body, #impressframe {
     /*display: block*/
 }
 
-.step:hover{
+.step:hover .builder-select{
   background-color: rgba(255,250,100,0.5) !important;
 }
-
 
 /* buttons */
 .builder-bt{
