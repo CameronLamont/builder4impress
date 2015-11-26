@@ -62,7 +62,6 @@ div.side {
   top: 15px;
   /* left: 0.8em; */
   font-size: 1em;
-  /* transform:  translateZ(1.25em); */
 }
 
 
@@ -100,32 +99,32 @@ div.side.viewleft:hover {
 }
 
 
-.front {
+.side.front {
   
 background: rgba(0,255,0,0.5);
 transform: translateZ(1.25em);
 }
 
-.top {
+.side.top {
   
   background: rgba(0,0,255,0.5);
   transform: rotateX(90deg) translateZ(1.25em);
 }
 
-.right {
+.side.right {
   
   background: rgba(255,0,0,0.5);
   transform: rotateY(90deg) translateZ(1.25em);
 }
 
-.left {
+.side.left {
   transform: rotateY(-90deg) translateZ(1.25em);
 }
 
-.bottom {
+.side.bottom {
   transform: rotateX(-90deg) translateZ(1.25em);
 }
 
-.back {
+.side.back {
   transform: rotateY(-180deg) translateZ(1.25em);
 }
