@@ -34,35 +34,35 @@
   <script src="js/builder.js"></script>
   <script>
     ($(function() {
-        $('#impressframe').on('load', function (){
-    
-         
-          var $f = $('#impressframe');
-          var fwin = this.contentWindow; //$('#impressframe')[0].contentWindow;
+	$('#impressframe').on('load', function () {
+
+
+		//var $f = $('#impressframe');
+		var fwin = this.contentWindow; //$('#impressframe')[0].contentWindow;
       
-           var fdoc = fwin.document;
+		var fdoc = fwin.document;
       
-          // clone all builder styles into iframe document
-          //TODO remove them again on export
-          $.each($(document).children("html").children("head").children("link"),function(){
-            $(this).clone().appendTo($("html",fdoc).children("head"));
-          });
-      
-      
-         
-          var iAPI= fwin.impress();
-          
-          Builder.init({
+		// clone all builder styles into iframe document
+		//TODO remove them again on export
+		$.each($(document).children("html").children("head").children("link"), function () {
+            $(this).clone().appendTo($("html", fdoc).children("head"));
+		});
+
+
+
+		var iAPI = fwin.impress();
+
+		Builder.init({
             win: fwin,
             doc: fdoc,
             iAPI: iAPI,
-            "goto":iAPI['goto'], //it makes me feel better this way
-            "creationFunction":iAPI['newStep'], //future API method that adds a new step
-            redrawFunction:iAPI.initStep, //future API method that (re)draws the step
-            setTransformationCallback:iAPI.setTransformationCallback //future API method that lets me know when transformations change
-          });
-        });
-    }))();
+            "goto": iAPI['goto'], //it makes me feel better this way
+            "creationFunction": iAPI['newStep'], //future API method that adds a new step
+            redrawFunction: iAPI.initStep, //future API method that (re)draws the step
+            setTransformationCallback: iAPI.setTransformationCallback //future API method that lets me know when transformations change
+		})
+	})
+}))();
 
   </script>
 

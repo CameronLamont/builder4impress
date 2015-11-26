@@ -320,6 +320,9 @@
             
             stepsData["impress-" + el.id] = step;
             
+
+            
+            
             css(el, {
                 position: "absolute",
                 transform: "translate(-50%,-50%)" +
