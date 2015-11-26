@@ -72,6 +72,16 @@ Builder=(function(){
         config.rotation=~~(x.rotate.z);
         console.log('rotate',x.rotate.z);
       //I don't see why I should need translation right now, but who knows...
+     
+        console.log("hello this is a transformation callback");
+        
+        $menu.children(".w1").children(".cube1").css("rotateX", x.rotate.x);
+        
+        $menu.children(".w1").children(".cube1").css("rotateY", x.rotate.y);
+        
+        $menu.children(".w1").children(".cube1").css("rotateZ", x.rotate.z);
+        
+        
       })
     }
     

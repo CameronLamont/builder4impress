@@ -5,9 +5,9 @@ body.cubetest { height: 100%;}
   height: 100%;
 }
 
-.wrapper {
+div.wrapper {
   width: 100%;
-  float: right;
+  /* float: right; */
   padding-left: 0px;
 }
 
@@ -29,12 +29,14 @@ body.cubetest { height: 100%;}
 
 .cube1 {
   font-size: 2em;
-  width: 2em;
-  margin: 1.5em auto;
+  /* width: 120px; */
+  /* margin: 1.5em auto; */
   transform-style: preserve-3d;
+  transform-origin: center center;
   transform: rotateX(-45deg) rotateY(45deg) rotateZ(0deg);
   position: relative;
   padding-left: initial;
+  height: 3em;
 }
 
 .cube2 {
@@ -56,6 +58,8 @@ div.side {
   text-align: center;
   line-height: 2em;
   padding-left: 0px;
+  top: 15px;
+  left: 0.8em;
 }
 
 
