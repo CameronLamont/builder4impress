@@ -75,11 +75,21 @@ Builder=(function(){
      
         console.log("hello this is a transformation callback");
         
+        /*
         $menu.children(".w1").children(".cube1").css("rotateX", x.rotate.x);
         
         $menu.children(".w1").children(".cube1").css("rotateY", x.rotate.y);
         
         $menu.children(".w1").children(".cube1").css("rotateZ", x.rotate.z);
+        */
+        
+        $menu.children(".w1").children(".cube1").css({
+          rotateX: x.rotate.x + "deg",
+          rotateY: x.rotate.y + "deg",
+          rotateZ: x.rotate.z + "deg",
+          transitionDuration: 1000 + "ms",
+          transitionDelay: (false ? 0 : 500) + "ms"
+        });
         
         
       })
@@ -98,12 +108,12 @@ Builder=(function(){
     $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Download style.css').on('click',downloadStyle);
     
     $('<div class="wrapper w1"><div class="cube1">\
-			<div class="side viewfront front" style="transform: translateZ(1em);\">front</div>\
-			<div class="side   back" style="transform: rotateY(-180deg) translateZ(1em);"></div>\
-			<div class="side right" style="transform: rotateY(90deg) translateZ(1em);"></div>\
-			<div class="side  viewleft left" style="transform: rotateY(-90deg) translateZ(1em);">left</div>\
-			<div class="side  viewtop  top" style="transform: rotateX(90deg) translateZ(1em);">top</div>\
-			<div class="side  bottom" style="transform: rotateX(-90deg) translateZ(1em);"></div>\
+			<div class="side viewfront front">front</div>\
+			<div class="side   back"></div>\
+			<div class="side right"></div>\
+			<div class="side  viewleft left">left</div>\
+			<div class="side  viewtop  top">top</div>\
+			<div class="side  bottom"></div>\
 		</div></div>').appendTo($menu);
     
     // update all transforms for the cube sides - transit can't see them until they've been written??

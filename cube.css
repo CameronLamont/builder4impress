@@ -30,7 +30,7 @@ div.wrapper {
 .cube1 {
   font-size: 2em;
   /* width: 120px; */
-  /* margin: 1.5em auto; */
+  margin: 1.5em auto;
   transform-style: preserve-3d;
   transform-origin: center center;
   transform: rotateX(-45deg) rotateY(45deg) rotateZ(0deg);
@@ -50,16 +50,19 @@ div.wrapper {
 
 div.side {
   position: absolute;
-  width: 2em;
-  height: 2em;
+  width: 3em;
+  height: 3em;
   background: rgba(255, 99, 71, 0.6);
   /* border: 1px solid rgba(0, 0, 0, 0.5); */
   color: white;
-  text-align: center;
-  line-height: 2em;
+  /* text-align: center; */
+  /* vertical-align: middle; */
+  line-height: 2.2em;
   padding-left: 0px;
   top: 15px;
-  left: 0.8em;
+  /* left: 0.8em; */
+  font-size: 1em;
+  /* transform:  translateZ(1.25em); */
 }
 
 
@@ -100,26 +103,29 @@ div.side.viewleft:hover {
 .front {
   
 background: rgba(0,255,0,0.5);
+transform: translateZ(1.25em);
 }
 
 .top {
   
   background: rgba(0,0,255,0.5);
+  transform: rotateX(90deg) translateZ(1.25em);
 }
 
 .right {
   
   background: rgba(255,0,0,0.5);
+  transform: rotateY(90deg) translateZ(1.25em);
 }
 
 .left {
-  
+  transform: rotateY(-90deg) translateZ(1.25em);
 }
 
 .bottom {
-  
+  transform: rotateX(-90deg) translateZ(1.25em);
 }
 
 .back {
-  
+  transform: rotateY(-180deg) translateZ(1.25em);
 }

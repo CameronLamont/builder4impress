@@ -7,6 +7,7 @@
 body.builder4impress, #impressframe {
     min-height: 100vh;
     height: 100vh;
+    font-family: 'PT Sans', sans-serif;
 }
 #impressframe {
     width: 100vw
