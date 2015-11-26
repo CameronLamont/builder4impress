@@ -6,14 +6,18 @@ body.cubetest { height: 100%;}
 }
 
 div.wrapper {
-  width: 100%;
+  width: 120px;
   /* float: right; */
   padding-left: 0px;
+  height: 150px;
+  /* margin: 10px 10px 10px 10px; */
 }
 
 .w1 {
    transform-style: preserve-3d;
-   /*position: relative;*/
+   /* position: relative; */
+   /* width: 120px; */
+   /* height: 120px; */
 }
 
 
@@ -27,19 +31,20 @@ div.wrapper {
 }
 
 
-.cube1 {
+div.cube1 {
   font-size: 2em;
-  /* width: 120px; */
-  margin: 1.5em auto;
+  width: 120px;
+  /* margin: 10px 10px 10px 0px; */
   transform-style: preserve-3d;
   transform-origin: center center;
   transform: rotateX(-45deg) rotateY(45deg) rotateZ(0deg);
-  position: relative;
-  padding-left: initial;
-  height: 3em;
+  position: absolute;
+  padding-left: 0px;
+  height: 120px;
+  top:  20px;
 }
 
-.cube2 {
+div.cube2 {
   font-size: 4em;
   width: 2em;
   margin: 4em auto;
@@ -60,7 +65,7 @@ div.side {
   line-height: 2.2em;
   padding-left: 0px;
   top: 15px;
-  /* left: 0.8em; */
+  left: 20px;
   font-size: 1em;
 }
 

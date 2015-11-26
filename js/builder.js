@@ -83,6 +83,7 @@ Builder=(function(){
         $menu.children(".w1").children(".cube1").css("rotateZ", x.rotate.z);
         */
         
+        /*orient the 'gimble' cube in line with the active step */
         $menu.children(".w1").children(".cube1").css({
           rotateX: x.rotate.x + "deg",
           rotateY: x.rotate.y + "deg",
@@ -108,12 +109,12 @@ Builder=(function(){
     $('<div></div>').addClass('builder-bt bt-download').appendTo($menu).text('Download style.css').on('click',downloadStyle);
     
     $('<div class="wrapper w1"><div class="cube1">\
-			<div class="side viewfront front">front</div>\
-			<div class="side   back"></div>\
-			<div class="side right"></div>\
-			<div class="side  viewleft left">left</div>\
-			<div class="side  viewtop  top">top</div>\
-			<div class="side  bottom"></div>\
+			<div class="side viewfront front" style="transform: translateZ(1.25em);">front</div>\
+			<div class="side back" style="transform: rotateY(-180deg) translateZ(1.25em);"></div>\
+			<div class="side right" style="transform: rotateY(90deg) translateZ(1.25em);"></div>\
+			<div class="side viewleft left" style="transform: rotateY(-90deg) translateZ(1.25em);">left</div>\
+			<div class="side viewtop top" style="transform: rotateX(90deg) translateZ(1.25em);">top</div>\
+			<div class="side bottom" style="transform: rotateX(-90deg) translateZ(1.25em);"></div>\
 		</div></div>').appendTo($menu);
     
     // update all transforms for the cube sides - transit can't see them until they've been written??
@@ -128,24 +129,48 @@ Builder=(function(){
     // attach click handler to pass rotate parameters to canvas object within iframe
     $menu.children(".w1").children(".cube1").children(".side").on('click',function flip(el){
 		  console.log(this.classList);
-      if($.inArray('viewtop',this.classList)>0 || $.inArray('viewfront',this.classList)>0 || $.inArray('viewleft',this.classList)>0){
+      if ($.inArray('viewtop', this.classList) > 0 || $.inArray('viewfront', this.classList) > 0 || $.inArray('viewleft', this.classList) > 0) {
         console.log(this.innerText);
-        
-        console.log($canvas.css("transform"));
-        
+
+		console.log("canvas before");
+//         console.log($canvas.css("transform"));
+//         console.log($canvas.css("rotateX"));
+//         console.log($canvas.css("rotateY"));
+//         console.log($canvas.css("rotateZ"));
+                
+		console.log($canvas[0].style.transform);
 
         //$("#canvas", config.doc)
-          $canvas.css("rotateX", "-" + $(this).css("rotateX"));
-         //$("#canvas", config.doc)
-         $canvas.css("rotateY", $(this).css("rotateY"));
-         //$("#canvas", config.doc)
-         $canvas.css("rotateZ", $(this).css("rotateZ"));
-        
-			
-		
+        //$canvas.css("rotateX", $(this).css("rotateX"));
+        //$("#canvas", config.doc)
+        //$canvas.css("rotateY", $(this).css("rotateY"));
+        //$("#canvas", config.doc)
+        // $canvas.css("rotateZ", $(this).css("rotateZ"));
+
+
+		console.log("cube");
+         console.log($(this).css("transform"));
+//         console.log($(this).css("rotateX"));
+//         console.log($(this).css("rotateY"));
+//         console.log($(this).css("rotateZ"));
+
+		console.log($(this)[0].style.transform);
+		console.log(getComputedStyle(this).transform);
+
+        $canvas.css({
+          rotateX:  $(this).css("rotateX"), 
+          rotateY: $(this).css("rotateY"), 
+          rotateZ: $(this).css("rotateZ")});
+    
 			//$(".w2 .cube").css("transform",$(this).css("transform"));
 			
-			
+		console.log("canvas after");
+         console.log($canvas.css("transform"));
+//         console.log($canvas.css("rotateX"));
+//         console.log($canvas.css("rotateY"));
+//         console.log($canvas.css("rotateZ"));	
+
+		console.log($canvas[0].style.transform);
 		};
 		
 		
