@@ -201,7 +201,7 @@ function checkTranslate3dSupport() {
       // forcing Chrome to not use the 3d transforms as well.  Not sure if
       // translate is affectede, but not risking it.  Detection code from
       // http://davidwalsh.name/detecting-google-chrome-javascript
-      if (support.transform === 'WebkitTransform' && !isChrome) {
+      if (support.transform === 'WebkitTransform'/* && !isChrome*/) {
         elem.style[support.transform] = value.toString(true);
       } else {
         elem.style[support.transform] = value.toString();
@@ -282,7 +282,8 @@ function checkTranslate3dSupport() {
   registerCssHook('skewY');
   registerCssHook('x', true);
   registerCssHook('y', true);
-
+  registerCssHook('z', true);
+ 
   // ## Transform class
   // This is the main class of a transformation property that powers
   // `$.fn.css({ transform: '...' })`.
@@ -423,6 +424,7 @@ function checkTranslate3dSupport() {
       //
       //     .css({ translate: '2, 5' })    //=> "translate(2px, 5px)"
       //
+      //TODO update with z
       translate: function(x, y,z) {
         if (this._translateX === undefined) { this._translateX = 0; }
         if (this._translateY === undefined) { this._translateY = 0; }
