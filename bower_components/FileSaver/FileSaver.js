@@ -11,8 +11,7 @@
 /*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
 
 /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-var saveAs = saveAs || (function(view) {
+var saveAs = saveAs || (function (view) {
 	"use strict";
 	// IE <10 is explicitly unsupported
 	if (typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
@@ -267,4 +266,5 @@ if (typeof module !== "undefined" && module.exports) {
   define([], function() {
     return saveAs;
   });
-}
+	
+	};

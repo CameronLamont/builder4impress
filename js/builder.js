@@ -1,4 +1,4 @@
-define(["impress","jquery","jquery-ui","jquery.transit"],function(imp,$){
+define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(imp,$){
   var state={
     editing:false,
     $node:false,
@@ -316,7 +316,7 @@ define(["impress","jquery","jquery-ui","jquery.transit"],function(imp,$){
 
       var bb = new Blob([content], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
     
-      fs.saveAs(bb, "style.css");
+      saveAs(bb, "style.css");
     });
    
   }
@@ -355,7 +355,7 @@ define(["impress","jquery","jquery-ui","jquery.transit"],function(imp,$){
 
     var bb = new Blob([content], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
     
-    fs.saveAs(bb, "presentation.html");
+    saveAs(bb, "presentation.html");
 
   }
   

@@ -10,7 +10,7 @@ require.config({
         "builder": "builder",
         "impressConsole": "impressConsole",
         "impress": "impress",
-        "FileSaver": "../bower_components/FileSave/FileSaver"
+        "FileSaver": "../bower_components/FileSaver/FileSaver"
     }
 
     // ,
@@ -34,7 +34,7 @@ require.config({
 
 
 
-define(["builder","jquery","jquery-ui","jquery.transit"], function (builder,$) {
+requirejs(["builder","jquery","jquery-ui","jquery.transit"], function (builder,$) {
     console.log("loaded");
     
     $('#impressframe').ready(function () {
