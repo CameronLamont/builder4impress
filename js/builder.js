@@ -1,4 +1,4 @@
-Builder=(function(){
+define(["impress","jquery","jquery-ui","jquery.transit"],function(imp,$){
   var state={
     editing:false,
     $node:false,
@@ -316,7 +316,7 @@ Builder=(function(){
 
       var bb = new Blob([content], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
     
-      saveAs(bb, "style.css");
+      fs.saveAs(bb, "style.css");
     });
    
   }
@@ -355,7 +355,7 @@ Builder=(function(){
 
     var bb = new Blob([content], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
     
-    saveAs(bb, "presentation.html");
+    fs.saveAs(bb, "presentation.html");
 
   }
   
@@ -460,4 +460,4 @@ Builder=(function(){
     init:init
   };
 
-})();
+});
