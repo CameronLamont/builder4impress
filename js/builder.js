@@ -94,7 +94,7 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
         
         
       })
-    }
+    };
     
     $impress=$('#impress');
     $overview=$('#overview');
@@ -199,30 +199,27 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
     
     // make controls draggable
     $controls.draggable();
-    /*
+
     var showTimer;
     
-    $controls.appendTo('body').on('mousedown','div',function(e){
+    $controls.appendTo('body').on('mousedown', 'div', function (e) {
       e.preventDefault();
-      mouse.activeFunction=handlers[$(this).data('func')];
+      mouse.activeFunction = handlers[$(this).data('func')];
       loadData();
-      mouse.prevX=e.pageX;
-      mouse.prevY=e.pageY;
-      $(config.doc).on('mousemove.handler1',handleMouseMove);
+      mouse.prevX = e.pageX;
+      mouse.prevY = e.pageY;
+      $(config.doc).on('mousemove.handler1', handleMouseMove);
       return false;
-    }).on('mouseenter',function(){
+    });
+    /*
+      .on('mouseenter', function () {
       clearTimeout(showTimer);
     });
     $(config.doc).on('mouseup',function(){
       mouse.activeFunction=false;
       $(config.doc).off('mousemove.handler1');
     });
-    */
-    // create highlight class to be used to show steps being high lighted
-    //TODO remove hard coded style and pull from builder.css
-    //$("html > head", config.doc).append($("<style type='text/css'> .builderhighlight {background-color: rgba(255, 250, 100, 0.5);}</style>", config.doc));
-    
-    
+        */
     $('body',config.doc).on('mouseenter','.step',function(){
       var $t=$(this);
       /*showTimer=setTimeout(function(){
@@ -233,6 +230,9 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
         }
       },500);*/
       //$t.data('showTimer', showTimer);
+      
+ 		state.$node=$t;
+          showControls(state.$node);
       
       $t.addClass('builder-select');
       $t.addClass('ui-widget-content');
