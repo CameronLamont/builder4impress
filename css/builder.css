@@ -1,145 +1,115 @@
+/* builder4impress GUI styles - SCSS to be translated to CSS by SASS*/
+* {
+  padding: 0;
+  margin: 0; }
 
-
-/* builder4impress GUI styles */
-
-
-* { padding: 0; margin: 0; }
 body.builder4impress, #impressframe {
-    min-height: 100vh;
-    height: 100vh;
-    font-family: 'PT Sans', sans-serif;
-}
-#impressframe {
-    width: 100vw
-    /*;*/
-    /*display: block*/
-}
+  min-height: 100vh;
+  height: 100vh;
+  font-family: 'PT Sans', sans-serif; }
 
-div.builder-select{
+#impressframe {
+  width: 100vw; }
+
+div.builder-select {
   /*background-color: rgba(255,250,100,0.5) !important;*/
   /* use linear-gradient with the same colours to overlap any background images */
-  background: linear-gradient(
-    rgba(255,250,100,0.5),
-    rgba(255,250,100,0.5)
-  );
-}
+  background: linear-gradient(rgba(255, 250, 100, 0.5), rgba(255, 250, 100, 0.5)); }
 
 /* buttons */
-.builder-bt{
--webkit-box-shadow: 0px 0px 2px #636363;
-   -moz-box-shadow: 0px 0px 2px #636363;
-        box-shadow: 0px 0px 2px #636363;
-        
-background-color: #333;
-border-radius: 3px;
-padding: 5px;
-margin: 5px;
+.builder-bt {
+  -webkit-box-shadow: 0px 0px 2px #636363;
+  -moz-box-shadow: 0px 0px 2px #636363;
+  box-shadow: 0px 0px 2px #636363;
+  background-color: #333;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  cursor: pointer; }
 
-text-align: center;
-cursor: pointer;
-}
-
-
-/* control boxes */ 
-
+/* control boxes */
 .builder-main {
-  padding:5px;
+  padding: 5px;
   background-color: #222;
   color: #fff;
   width: 120px;
   text-align: center;
   position: fixed;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   opacity: 0.6;
-  /* transform-style: preserve-3d; */
-}
+  /* transform-style: preserve-3d; */ }
 
-.builder-main div,.builder-main a{
+.builder-main div, .builder-main a {
   display: block;
   cursor: pointer;
-  padding-left: 23px;
-}
+  padding-left: 23px; }
 
-.bt-overview{
-  background: #333 url(over.png) no-repeat center left;
-}
-.bt-add{
-  background: #333 url(add.png) no-repeat center left;
-}
-.bt-download{
-  background: #333 url(get.png) no-repeat center left;
-}
+.bt-overview {
+  background: #333 url(over.png) no-repeat center left; }
 
-.bt-upload{
-  background: #333 url(put.png) no-repeat center left;
-}
+.bt-add {
+  background: #333 url(add.png) no-repeat center left; }
+
+.bt-download {
+  background: #333 url(get.png) no-repeat center left; }
+
+.bt-upload {
+  background: #333 url(put.png) no-repeat center left; }
 
 .builder-controls {
-  padding:5px;
+  padding: 5px;
   /*background: #222;*/
-  background: rgba(34,34,34,0.6);
+  background: rgba(34, 34, 34, 0.6);
   color: #fff;
   width: 50px;
   text-align: center;
   position: absolute;
-  /*opacity: 0.6;*/
-}
+  /*opacity: 0.6;*/ }
 
 .builder-controls textarea {
   width: 400px;
   height: 200px;
-  opacity: 1;
-}
+  opacity: 1; }
 
 .builder-controls div {
-  cursor:move;
-  position:relative;
+  cursor: move;
+  position: relative;
   height: 24px;
   margin: 3px;
-  opacity: 0.6;
-}
+  opacity: 0.6; }
 
+.bt-move {
+  background: transparent url(move.png) no-repeat center; }
 
-.bt-move{
-  background: transparent url(move.png) no-repeat center;
-}
+.bt-rotate {
+  background: transparent url(rotate.png) no-repeat center; }
 
-.bt-rotate{
-  background: transparent url(rotate.png) no-repeat center;
-}
-
-.bt-scale{
-  background: transparent url(scale.png) no-repeat center;
-}
-
+.bt-scale {
+  background: transparent url(scale.png) no-repeat center; }
 
 .builder-controls div:before {
-  content:'drag';
+  content: 'drag';
   font-size: 9px;
   position: absolute;
-  top:0;
-  left:-8px;
-
-
+  top: 0;
+  left: -8px;
   -webkit-transform: rotate(312deg);
-     -moz-transform: rotate(312deg);
-          transform: rotate(312deg);
-}
-
+  -moz-transform: rotate(312deg);
+  transform: rotate(312deg); }
 
 .builder-controls span {
-  display:block;
-}
+  display: block; }
 
 .builder-justcreated {
   background-color: rgba(224, 208, 33, 0.5);
-  position:relative;
+  position: relative;
   opacity: 1;
   z-index: 999999999;
   border-radius: 50px;
   -webkit-box-shadow: 0px 0px 100px #e0d021;
-     -moz-box-shadow: 0px 0px 100px #e0d021;
-          box-shadow: 0px 0px 100px #e0d021;
-}
+  -moz-box-shadow: 0px 0px 100px #e0d021;
+  box-shadow: 0px 0px 100px #e0d021; }
 
+/*# sourceMappingURL=builder.css.map */
