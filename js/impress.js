@@ -241,6 +241,8 @@
         // data of all presentation steps
         var stepsData = {};
         
+       
+        
         // element of currently active step
         var activeStep = null;
         
@@ -673,10 +675,21 @@
             prev: prev,
             initStep: initStep,
             newStep: newStep,
-            setTransformationCallback: setTransformationCallback
+            setTransformationCallback: setTransformationCallback,
+            getStepsData:  function(){
+                return stepsData;
+            },
+            getSteps:  function(){
+                return steps;
+            },
+            getStep: function (step) {
+                return getStep(step);
+            }
         });
 
     };
+    
+    
     
     // flag that can be used in JS to check if browser have passed the support test
     impress.supported = impressSupported;

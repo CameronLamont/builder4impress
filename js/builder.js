@@ -32,6 +32,8 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
   //nodes
   $menu,$controls,$impress,$overview;
 
+  var $slides;
+
   handlers.move=function(x,y){
     
     var v=fixVector(x,y);
@@ -199,6 +201,81 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
     
     // make controls draggable
     $controls.draggable();
+
+    $slides=$('<div></div>').addClass('builder-slidesorter');
+  
+
+    var slidesorter = $('<div style="margin: 0;padding: 0;"></div>').addClass('bt-slidesorter').appendTo($slides);
+    var steps = config.iAPI['getSteps']();
+
+    slidesorter.css("width", (steps.length * 100) + "px");
+    
+    for (var s of steps){
+      // console.log(s);
+      
+      //var x = $('<div style="height:50px;width:50px;"></div>').appendTo(slidesorter)
+       //var x = slidesorter.append('<div><span>Slide ' + s.id + '</span></div>');
+
+      var $slidethumb = $('<div></div>').addClass('bt-slidethumb');
+      
+
+      //$newslide = $(s, config.doc).clone()
+
+      //$("<iframe></iframe>").attr("src","data:text/html;charset=utf-8," + encodeURI($newslide[0].innerHTML)).appendTo(x);
+
+      var $newslide = $("<iframe></iframe>")
+        .attr("src", $("#impressframe", document).attr("src") + "#/" + s.id)
+        .attr("tabindex",-1)
+        .appendTo($slidethumb);
+      
+        
+      var cover = $('<div style="cursor:pointer; position: absolute; width:116px; height: 116px; left: 0; top: 0; z-index: 100; background-color: #F00; opacity: 0.5;"></div>').appendTo($slidethumb);
+      
+      cover.attr("data-slideid",s.id);
+      cover.on('click', function (e) {
+        console.log("cover was clicked for " + $(this).attr("data-slideid"));
+
+        config['goto']($(this).attr("data-slideid"));
+      });
+        
+      
+      
+      slidesorter.append($slidethumb);
+      $newslide.on('load', function () {
+       
+          $(this).on('focus', function (e) {
+            e.preventDefault();
+            console.log('stopped focus');
+          });
+
+          $(this).on('click', function (e) {
+            e.preventDefault();
+            console.log('stopped a click');
+          });
+    
+          $(this).on('mouseenter', function (e) {
+            e.preventDefault();
+            $(this).css({ "border": "thick", "border-color": "rgba(255,255,255,1)"});
+          });
+    
+         $(this).on('mouseleave', function (e) {
+            e.preventDefault();
+            $(this).css({ "border": "none"});
+          });
+    
+          $(this).on('keydown', function (e) {
+            e.preventDefault();
+            console.log('stopped a keydown');
+          });
+
+
+      })
+
+      }; 
+    //slidesorter.sortable();
+
+    //$slides.draggable();
+    $slides.appendTo('body');
 
     var showTimer;
     
