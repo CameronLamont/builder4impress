@@ -203,12 +203,14 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
     $controls.draggable();
 
     $slides=$('<div></div>').addClass('builder-slidesorter');
-  
+
+    //Todo make this work?
+    //$slides.draggable();
 
     var slidesorter = $('<div style="margin: 0;padding: 0;"></div>').addClass('bt-slidesorter').appendTo($slides);
     var steps = config.iAPI['getSteps']();
 
-    slidesorter.css("width", (steps.length * 100) + "px");
+    slidesorter.css("width", (steps.length * 117) + "px");
     
     for (var s of steps){
       // console.log(s);
@@ -229,7 +231,7 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
         .appendTo($slidethumb);
       
         
-      var cover = $('<div style="cursor:pointer; position: absolute; width:116px; height: 116px; left: 0; top: 0; z-index: 100; background-color: #F00; opacity: 0.5;"></div>').appendTo($slidethumb);
+      var cover = $('<div></div>').addClass('bt-slidethumbcover').appendTo($slidethumb);
       
       cover.attr("data-slideid",s.id);
       cover.on('click', function (e) {
@@ -238,6 +240,17 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
         config['goto']($(this).attr("data-slideid"));
       });
         
+          cover.on('mouseenter', function (e) {
+            // e.preventDefault();
+            $(this).css({ "background-color": "rgba(255,255,255,0.2)"});
+            $(this).parent("iframe").css({ "opacity": 1 });
+          });
+    
+         cover.on('mouseleave', function (e) {
+            // e.preventDefault();
+            $(this).css({ "background-color": "transparent"});
+            $(this).parent("iframe").css({ "opacity": 0.6 });
+         });
       
       
       slidesorter.append($slidethumb);
@@ -253,15 +266,7 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
             console.log('stopped a click');
           });
     
-          $(this).on('mouseenter', function (e) {
-            e.preventDefault();
-            $(this).css({ "border": "thick", "border-color": "rgba(255,255,255,1)"});
-          });
-    
-         $(this).on('mouseleave', function (e) {
-            e.preventDefault();
-            $(this).css({ "border": "none"});
-          });
+      
     
           $(this).on('keydown', function (e) {
             e.preventDefault();

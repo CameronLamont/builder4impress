@@ -43,17 +43,17 @@ div.builder-select {
 
 .builder-slidesorter {
   padding: 5px;
-  background-color: #222;
+  background-color: rgba(34, 34, 34, 0.1);
   color: #fff;
-  width: 80vw;
+  width: 90vw;
   height: 130px;
   text-align: center;
   position: fixed;
   left: 0;
   bottom: 0px;
-  opacity: 0.6;
+  /*opacity: 0.6;*/
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y:  hidden;
   white-space: nowrap;
   /* transform-style: preserve-3d; */
   }
@@ -65,26 +65,39 @@ div.builder-select {
   height: 100px;
   transform-style: preserve-3d;
   }
-div.bt-slidethumb
-{
-  border:none;
-  /* padding: 0; */
-}
-
-div.bt-slidethumb:hover
-{
-  border: thick;
-  border-color: #e0d021;
-}
-div.bt-slidethumb > div {
-  float: left;
-  position: absolute; }
 
 div.bt-slidethumb > iframe {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border: none; }
+  border: none; 
+  /*opacity: 0.6*/
+  }
+
+div.bt-slidethumbcover {
+  cursor:pointer; 
+  position: absolute; 
+  width:116px; 
+  height: 116px; 
+  left: 0; top: 0; 
+  z-index: 100; 
+  background-color: transparent;
+  /*opacity: 0.5;*/
+  border:none;
+}
+
+/*div.bt-slidethumbcover:hover
+{
+  border: thick;
+  border-color: #e0d021;*/
+}
+div.bt-slidethumb > div {
+  float: left;
+  position: absolute; 
+  }
+
+
+
 
 .builder-main div, .builder-main a {
   display: block;
