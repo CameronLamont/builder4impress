@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "jquery-ui": "~1.11.4",
-    "jquery.transit": "~0.9.12"
+    "jquery.transit": "~0.9.12",
+    "html2canvas": "~0.4.1"
   }
 }

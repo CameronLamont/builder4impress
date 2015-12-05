@@ -1,6 +1,6 @@
 
 
-// retrieved 29/11/2015 from
+// original retrieved 29/11/2015 from
 //http://www.xpertdeveloper.com/2012/10/webpage-screenshot-with-html5-js/
 
 (function (exports) {
@@ -28,12 +28,12 @@
         return nodeList;
     }
 
-    function screenshotPage() {
-        urlsToAbsolute(document.images);
-        urlsToAbsolute(document.querySelectorAll("link[rel='stylesheet']"));
-        var screenshot = document.documentElement.cloneNode(true);
-        var b = document.createElement('base');
-        b.href = document.location.protocol + '//' + location.host;
+    function screenshotPage(doc) {
+        urlsToAbsolute(doc.images);
+        urlsToAbsolute(doc.querySelectorAll("link[rel='stylesheet']"));
+        var screenshot = doc.documentElement.cloneNode(true);
+        var b = doc.createElement('base');
+        b.href = doc.location.protocol + '//' + location.host;
         var head = screenshot.querySelector('head');
         head.insertBefore(b, head.firstChild);
         screenshot.style.pointerEvents = 'none';
@@ -45,7 +45,7 @@
         screenshot.style.userSelect = 'none';
         screenshot.dataset.scrollX = window.scrollX;
         screenshot.dataset.scrollY = window.scrollY;
-        var script = document.createElement('script');
+        var script = doc.createElement('script');
         script.textContent = '(' + addOnPageLoad_.toString() + ')();';
         screenshot.querySelector('body').appendChild(script);
         var blob = new Blob([screenshot.outerHTML], {
@@ -62,10 +62,11 @@
         });
     }
 
-    function generate() {
-        window.URL = window.URL || window.webkitURL;
-        window.open(window.URL.createObjectURL(screenshotPage()));
+    function generateScreenShot(win) {
+       
+        win.URL = win.URL || win.webkitURL;
+        window.open(win.URL.createObjectURL(screenshotPage(win.document)));
     }
     exports.screenshotPage = screenshotPage;
-    exports.generate = generate;
+    exports.generateScreenShot = generateScreenShot;
 })(window);

@@ -74,6 +74,15 @@ div.bt-slidethumb > iframe {
   /*opacity: 0.6*/
   }
 
+div.bt-slidethumb > img {
+  width: auto;
+  height: auto;
+  max-width: 100px;
+  max-height: 100px;
+  border: none; 
+  /*opacity: 0.6*/
+  }
+
 div.bt-slidethumbcover {
   cursor:pointer; 
   position: absolute; 
@@ -85,6 +94,19 @@ div.bt-slidethumbcover {
   /*opacity: 0.5;*/
   border:none;
 }
+
+ .bt-slidethumbplaceholder {
+    border: 3px dotted black;
+    margin: 0 1em 1em 0;
+    height: 100px;
+    width: 100px;
+    float:left;
+    /*left:0;top:0;
+    position:absolute;*/
+    height: 116px;
+    width: 116px;
+  }
+
 
 /*div.bt-slidethumbcover:hover
 {

@@ -1,4 +1,4 @@
-define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(imp,$){
+define(["impress","jquery","jquery-ui","jquery.transit","FileSaver","html2canvas","screenshot"],function(imp,$){
   var state={
     editing:false,
     $node:false,
@@ -212,13 +212,17 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
 
     slidesorter.css("width", (steps.length * 117) + "px");
     
+    var $frameClone = $('#impressframe'); //.clone(true);
+      
+      
+    
     for (var s of steps){
       // console.log(s);
       
       //var x = $('<div style="height:50px;width:50px;"></div>').appendTo(slidesorter)
        //var x = slidesorter.append('<div><span>Slide ' + s.id + '</span></div>');
 
-      var $slidethumb = $('<div></div>').addClass('bt-slidethumb');
+      var $slidethumb = $('<div></div>').addClass('bt-slidethumb').attr("data-slideid",s.id);
       
 
       //$newslide = $(s, config.doc).clone()
@@ -230,6 +234,27 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
         .attr("tabindex",-1)
         .appendTo($slidethumb);
       
+      //$iframeclone.attr("src", $("#impressframe", document).attr("src") + "#/" + s.id);
+      
+     /* var $newslide = $("<img></img>")
+        .attr("src", config.win.URL.createObjectURL(screenshotPage($frameClone[0].contentWindow.document)))
+        .attr("tabindex",-1)
+        .appendTo($slidethumb);*/
+      
+     // generateScreenShot(config.win);
+      
+        /*
+       html2canvas(config.doc.body, {
+          onrendered: function(canvas) {
+             $(canvas).clone().appendTo($slidethumb);
+            $(canvas).clone().appendTo('body');
+            //$slidethumb[0].appendChild(canvas);
+          },
+          width: 100,
+          height: 100
+        });
+        */
+        
         
       var cover = $('<div></div>').addClass('bt-slidethumbcover').appendTo($slidethumb);
       
@@ -254,30 +279,103 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver"],function(im
       
       
       slidesorter.append($slidethumb);
+
+
       $newslide.on('load', function () {
-       
-          $(this).on('focus', function (e) {
-            e.preventDefault();
-            console.log('stopped focus');
-          });
 
-          $(this).on('click', function (e) {
-            e.preventDefault();
-            console.log('stopped a click');
-          });
-    
-      
-    
-          $(this).on('keydown', function (e) {
-            e.preventDefault();
-            console.log('stopped a keydown');
-          });
+        $(this).on('focus', function (e) {
+          e.preventDefault();
+          console.log('stopped focus');
+        });
+
+        $(this).on('click', function (e) {
+          e.preventDefault();
+          console.log('stopped a click');
+        });
 
 
-      })
+
+        $(this).on('keydown', function (e) {
+          e.preventDefault();
+          console.log('stopped a keydown');
+        });
+
+
+      });
+
 
       }; 
-    //slidesorter.sortable();
+      slidesorter.sortable(
+      {handle: ".bt-slidethumbcover", 
+      placeholder: "bt-slidethumbplaceholder",
+      helper:"clone"}
+        );
+
+
+      slidesorter.sortable({
+        update: function (event, ui) {
+          console.log(event.type,ui.originalPosition, ui.position);
+          var thisstep = $("#" + ui.item.find(".bt-slidethumbcover")
+            .attr("data-slideid"), config.doc);
+            
+          var prevstep = $("#" + $(ui.item).prev()
+              .find(".bt-slidethumbcover").attr("data-slideid"),config.doc);
+          
+          var nextstep = $("#" + $(ui.item).next()
+              .find(".bt-slidethumbcover").attr("data-slideid"),config.doc);
+          
+          
+         // thisstep.parent().splice(ui.item.index(), 0, thisstep.parent().splice(thisstep.index(), 1)[0]);
+          
+
+
+         // config['redrawFunction'](thisstep[0]);
+          
+          
+          
+          if (prevstep) {
+            thisstep.insertAfter(prevstep);
+            
+            //config['redrawFunction'](prevstep[0]);
+            //config['redrawFunction'](thisstep[0]);
+            
+            
+            // config['redrawFunction'](config.iAPI.getStepsData()['impress-' + prevstep[0].id]);
+            // config['redrawFunction'](config.iAPI.getStepsData()['impress-' + thisstep[0].id]);
+            
+          } else if (nextstep) {
+            thisstep.insertBefore(nextstep);
+
+            //config['redrawFunction'](thisstep[0]);
+            //config['redrawFunction'](nextstep[0]);
+
+            // config['redrawFunction'](config.iAPI.getStepsData()['impress-' + thisstep[0].id]);
+            // config['redrawFunction'](config.iAPI.getStepsData()['impress-' + nextstep[0].id]);
+          };
+
+redrawSteps = config.iAPI['getSteps']();
+
+for (var i = 0; i< redrawSteps.length-1;i++){
+	config['redrawFunction'](redrawSteps[i],i);	
+};
+// $().each(function(){
+// 	config['redrawFunction'](this);
+// 	});
+
+/*
+for (var i=0;i<thisstep.parent().children().length;i++){
+
+          config['redrawFunction'](thisstep.parent().children()[i],i);
+         
+}; 
+*/
+        },
+        change: function (event, ui) {
+          console.log(event.type,ui.originalPosition, ui.position);
+        }
+      });
+
+
 
     //$slides.draggable();
     $slides.appendTo('body');

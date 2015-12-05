@@ -10,7 +10,9 @@ require.config({
         "builder": "builder",
         "impressConsole": "impressConsole",
         "impress": "impress",
-        "FileSaver": "../bower_components/FileSaver/FileSaver"
+        "FileSaver": "../bower_components/FileSaver/FileSaver",
+        "screenshot": "screenshot",
+        "html2canvas": "../bower_components/html2canvas/build/html2canvas"
     }
 
     // ,
