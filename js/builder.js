@@ -324,10 +324,19 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver","html2canvas
           var nextstep = $("#" + $(ui.item).next()
               .find(".bt-slidethumbcover").attr("data-slideid"),config.doc);
           
+          var steps = config.iAPI.getSteps();
+
+          steps.splice(ui.item.index(), 0, steps.splice(thisstep.index(), 1)[0]);
           
-         // thisstep.parent().splice(ui.item.index(), 0, thisstep.parent().splice(thisstep.index(), 1)[0]);
+          
+          //thisstep.parent().splice(ui.item.index(), 0, thisstep.parent().splice(thisstep.index(), 1)[0]);
           
 
+		//	var stepsData =config.iAPI.getStepsData();
+
+		//stepsData.splice(ui.item.index(), 0, stepsData.splice(thisstep.index(), 1)[0]);
+          
+			
 
          // config['redrawFunction'](thisstep[0]);
           
@@ -353,11 +362,11 @@ define(["impress","jquery","jquery-ui","jquery.transit","FileSaver","html2canvas
             // config['redrawFunction'](config.iAPI.getStepsData()['impress-' + nextstep[0].id]);
           };
 
-redrawSteps = config.iAPI['getSteps']();
+		//redrawSteps = config.iAPI['getSteps']();
 
-for (var i = 0; i< redrawSteps.length-1;i++){
-	config['redrawFunction'](redrawSteps[i],i);	
-};
+		//for (var i = 0; i< redrawSteps.length-1;i++){
+		//	config['redrawFunction'](redrawSteps[i],i);	
+		//};
 // $().each(function(){
 // 	config['redrawFunction'](this);
 // 	});
