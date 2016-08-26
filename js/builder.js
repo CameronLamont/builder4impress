@@ -411,18 +411,19 @@ for (var i=0;i<thisstep.parent().children().length;i++){
         */
     $('body',config.doc).on('mouseenter','.step',function(){
       var $t=$(this);
-      /*showTimer=setTimeout(function(){
+      showTimer=setTimeout(function(){
         if(!mouse.activeFunction){
           //show controls
           state.$node=$t;
           showControls(state.$node);
         }
-      },500);*/
-      //$t.data('showTimer', showTimer);
+      },500);
+      $t.data('showTimer', showTimer);
       
+      /*
  		state.$node=$t;
           showControls(state.$node);
-      
+      */
       $t.addClass('builder-select');
       $t.addClass('ui-widget-content');
       
@@ -430,8 +431,8 @@ for (var i=0;i<thisstep.parent().children().length;i++){
         disabled: false
       });
       
-      // $t.draggable({ disabled: false,
-      //   iframefix: true, cursor: "move",cursorAt: {left:0, top:0} });
+      $t.draggable({ disabled: false,
+        iframefix: true, cursor: "move"}); //,cursorAt: {left:0, top:0} });
       
       // var dragFix = function (event, ui) {
       //   ui.position.left -= parseFloat(this.dataset.x);
@@ -456,9 +457,9 @@ for (var i=0;i<thisstep.parent().children().length;i++){
         disabled: true
       });
       $t.resizable("option", "disabled", true);
-      // $t.draggable({
-      //   disabled: true
-      // });
+      $t.draggable({
+        disabled: true
+      });
       // $t.draggable("option", "disabled", false);
     });
     
